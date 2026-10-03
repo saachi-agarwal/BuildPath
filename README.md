@@ -51,6 +51,22 @@ python app.py
 Then open `http://127.0.0.1:5000` in your browser. The project catalog is
 seeded automatically into `buildpath.db` the first time the app runs.
 
+## Deploy to Render
+
+This repository includes a Render Blueprint (`render.yaml`). To publish it:
+
+1. Push the repository, including `render.yaml` and the updated
+   `requirements.txt`, to GitHub.
+2. In Render, choose **New + → Blueprint**, connect this GitHub repository,
+   and apply the Blueprint.
+3. When the service is live, copy its `onrender.com` URL to share it.
+
+The Blueprint uses Render's free web-service plan. Its filesystem is
+ephemeral, so the SQLite database (profiles, project progress, and feedback)
+can be reset on restarts or redeploys. The app also uses shared demo profiles
+without accounts; do not enter private or sensitive information. Use persistent
+storage and add account isolation before relying on it for real user data.
+
 ## Folder Structure
 
 ```
