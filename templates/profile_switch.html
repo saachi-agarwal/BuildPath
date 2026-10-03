@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Switch Profile — BuildPath{% endblock %}
+
+{% block content %}
+
+    <section class="my-projects-header">
+        <h1>Choose a Profile</h1>
+        <a href="{{ url_for('main.new_profile') }}" class="btn btn-primary">+ New Profile</a>
+    </section>
+
+    {% if students %}
+        <section class="projects-grid">
+            {% for student in students %}
+                <div class="project-card glass">
+                    <span class="badge">{{ student.career_goal }}</span>
+                    <h3>{{ student.name }}</h3>
+                    <p class="project-date">{{ student.experience_level }} · {{ student.weekly_hours }} hrs/week</p>
+                    <div class="project-card-actions">
+                        <a href="{{ url_for('main.select_profile', student_id=student.id) }}" class="btn btn-secondary btn-small">Use This Profile</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    {% else %}
+        <section class="empty-state">
+            <p>No profiles yet — create the first one to get started.</p>
+            <a href="{{ url_for('main.new_profile') }}" class="btn btn-primary">Create a Profile</a>
+        </section>
+    {% endif %}
+
+{% endblock %}

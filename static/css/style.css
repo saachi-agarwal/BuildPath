@@ -1,0 +1,414 @@
+/* ============================================================
+   BuildPath — Stylesheet
+   Paper background, pine accent, Space Grotesk + IBM Plex Sans.
+   Flat hairline-bordered surfaces — no blur, no gradients,
+   no decorative motion. The roadmap is the one place numbering
+   and sequence treatment earn their place.
+   ============================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --paper: #F7F6F2;
+    --surface: #FFFFFF;
+    --ink: #1C2430;
+    --ink-soft: #5B6472;
+    --pine: #2F6B4F;
+    --pine-deep: #234F3A;
+    --pine-tint: #E7F0EA;
+    --line: #E2E0D6;
+    --danger: #B3432D;
+    --danger-tint: #F8E9E4;
+}
+
+body {
+    font-family: 'IBM Plex Sans', -apple-system, Segoe UI, Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+main {
+    flex: 1;
+    max-width: 1080px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 48px 28px;
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; padding-left: 0; }
+ul li {
+    padding: 5px 0 5px 18px;
+    position: relative;
+    color: var(--ink-soft);
+    font-size: 0.93rem;
+}
+ul li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--pine);
+}
+
+/* Every element still carrying the old "glass" class becomes a
+   plain flat surface — no blur, no transparency. */
+.glass {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--line);
+}
+
+.nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.nav-links { display: flex; gap: 30px; align-items: center; }
+.nav-links a {
+    color: var(--ink-soft);
+    font-weight: 500;
+    font-size: 0.93rem;
+    transition: color 0.15s ease;
+}
+.nav-links a:hover { color: var(--pine); }
+
+/* ---------- BUTTONS ---------- */
+.btn {
+    display: inline-block;
+    padding: 11px 24px;
+    border-radius: 7px;
+    font-weight: 500;
+    font-size: 0.92rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.btn-primary {
+    background: var(--pine);
+    color: #FFFFFF;
+}
+.btn-primary:hover { background: var(--pine-deep); }
+
+.btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line);
+}
+.btn-secondary:hover { border-color: var(--pine); color: var(--pine); }
+
+.btn-full { width: 100%; text-align: center; }
+.btn-large { padding: 14px 24px; font-size: 1rem; }
+.btn-small { padding: 7px 16px; font-size: 0.85rem; }
+
+/* ---------- FLASH MESSAGES ---------- */
+.flash-container { max-width: 1080px; margin: 20px auto 0; padding: 0 28px; }
+.flash {
+    padding: 13px 18px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    border: 1px solid transparent;
+}
+.flash-success { background: var(--pine-tint); border-color: #CFE3D6; color: var(--pine-deep); }
+.flash-error { background: var(--danger-tint); border-color: #EBD2C8; color: var(--danger); }
+
+/* ---------- HERO ---------- */
+.hero {
+    text-align: left;
+    max-width: 640px;
+    padding: 64px 0 56px;
+}
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 18px;
+}
+.hero-tagline {
+    font-size: 1.2rem;
+    color: var(--pine-deep);
+    margin-bottom: 16px;
+    font-weight: 500;
+    font-family: 'Space Grotesk', sans-serif;
+}
+.hero-description {
+    color: var(--ink-soft);
+    line-height: 1.75;
+    font-size: 1rem;
+    margin-bottom: 32px;
+    max-width: 58ch;
+}
+.hero .btn { margin-right: 10px; }
+
+/* ---------- FEATURES ---------- */
+.section-heading {
+    text-align: left;
+    font-size: 1.5rem;
+    margin-bottom: 28px;
+}
+.section-heading-left { font-size: 1.3rem; margin-bottom: 18px; }
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.feature-card {
+    background: var(--surface);
+    padding: 28px 26px;
+    text-align: left;
+    border: none;
+    border-radius: 0;
+}
+.feature-card h3 { margin-bottom: 8px; font-size: 1.02rem; }
+.feature-card p { color: var(--ink-soft); font-size: 0.9rem; line-height: 1.6; }
+
+/* Decorative emoji icons are retired in this design — hidden rather
+   than removed from the templates, so no template edits were needed. */
+.feature-icon, .card-icon { display: none; }
+
+/* ---------- FORMS ---------- */
+.form-section { display: flex; justify-content: flex-start; padding: 0; }
+.form-card { width: 100%; max-width: 640px; padding: 36px; }
+.auth-subtitle { color: var(--ink-soft); margin-bottom: 26px; font-size: 0.93rem; }
+.project-form { display: flex; flex-direction: column; gap: 4px; }
+.project-form label {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-top: 18px;
+    font-weight: 500;
+}
+.project-form input,
+.project-form select,
+.project-form textarea {
+    padding: 11px 13px;
+    border-radius: 7px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 0.93rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+.project-form input:focus, .project-form select:focus { border-color: var(--pine); }
+.project-form select option { background: var(--surface); color: var(--ink); }
+.project-form button { margin-top: 24px; }
+
+/* SKILLS GRID */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+    margin-top: 6px;
+}
+.skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+.skill-name { font-size: 0.85rem; color: var(--ink); }
+.skill-select { width: 52px; padding: 4px; font-size: 0.85rem; }
+
+/* INTERESTS GRID */
+.interests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 8px;
+    margin-top: 6px;
+}
+.interest-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.87rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 9px 12px;
+    border-radius: 6px;
+}
+
+/* ---------- RESULT / DASHBOARD HEADERS ---------- */
+.result-header { text-align: left; margin-bottom: 28px; }
+.result-header h1 { font-size: 1.9rem; margin-bottom: 10px; }
+.result-meta { display: flex; justify-content: flex-start; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+.badge {
+    background: var(--pine-tint);
+    color: var(--pine-deep);
+    padding: 5px 13px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.score-badge {
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 500;
+}
+.result-date { color: var(--ink-soft); font-size: 0.87rem; }
+
+.dashboard-section { margin-bottom: 44px; }
+
+.skill-gap-grid, .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.result-card {
+    padding: 24px 26px;
+    transition: border-color 0.15s ease;
+}
+.result-card:hover { border-color: var(--pine); }
+.result-card h3 { margin-bottom: 10px; font-size: 1.02rem; color: var(--ink); }
+.result-card p { color: var(--ink-soft); line-height: 1.6; font-size: 0.9rem; margin-bottom: 5px; }
+.result-card p strong { color: var(--ink); font-weight: 500; }
+
+.result-actions { display: flex; justify-content: flex-start; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+
+/* ---------- PROJECT / PROFILE GRIDS ---------- */
+.my-projects-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 14px; }
+.my-projects-header h1 { font-size: 1.7rem; }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.project-card {
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color 0.15s ease;
+}
+.project-card:hover { border-color: var(--pine); }
+.project-card-top { display: flex; justify-content: space-between; align-items: center; }
+.project-card h3 { font-size: 1.05rem; }
+.project-date { color: var(--ink-soft); font-size: 0.83rem; }
+.project-card-actions { display: flex; gap: 10px; margin-top: 12px; }
+.empty-state {
+    text-align: left;
+    padding: 36px 0;
+    color: var(--ink-soft);
+}
+.empty-state p { margin-bottom: 16px; font-size: 0.97rem; }
+
+/* ---------- ROADMAP ----------
+   The one place a sequence motif is earned: steps are genuinely
+   ordered, so they're auto-numbered via CSS counters. */
+.roadmap-card { padding: 20px 26px; counter-reset: step; }
+.roadmap-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    counter-increment: step;
+}
+.roadmap-step:last-child { border-bottom: none; }
+.task-toggle-form { display: inline; }
+.task-checkbox {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    border: 1.5px solid var(--line);
+    background: var(--surface);
+    color: var(--surface);
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+.task-checkbox:not(.checked)::before {
+    content: counter(step);
+    color: var(--ink-soft);
+    font-size: 0.72rem;
+}
+.task-checkbox.checked { background: var(--pine); border-color: var(--pine); }
+.task-checkbox.disabled { border-color: var(--line); cursor: not-allowed; }
+.task-checkbox.disabled::before {
+    content: counter(step);
+    color: var(--ink-soft);
+    opacity: 0.5;
+    font-size: 0.72rem;
+}
+.task-done { color: var(--ink-soft); text-decoration: line-through; }
+
+/* ---------- FOOTER ---------- */
+.footer {
+    text-align: left;
+    padding: 24px 40px;
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--line);
+    max-width: 1080px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ---------- FOCUS VISIBILITY (accessibility) ---------- */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid var(--pine);
+    outline-offset: 2px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 640px) {
+    .navbar { flex-direction: column; gap: 10px; padding: 16px 20px; align-items: flex-start; }
+    .hero { padding: 40px 0 36px; }
+    .hero-title { font-size: 2.1rem; }
+    .hero-tagline { font-size: 1.02rem; }
+    .form-card { padding: 26px 20px; }
+    .my-projects-header { flex-direction: column; align-items: flex-start; }
+    main { padding: 32px 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

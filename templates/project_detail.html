@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.title }} — BuildPath{% endblock %}
+
+{% block content %}
+
+    <section class="result-header">
+        <h1>{{ project.title }}</h1>
+        <div class="result-meta">
+            <span class="badge">{{ project.category }}</span>
+            <span class="badge">{{ project.difficulty }}</span>
+            <span class="result-date">{{ project.estimated_hours }} hrs · {{ project.duration_weeks }} weeks</span>
+        </div>
+    </section>
+
+    <section class="cards-grid">
+
+        <div class="result-card glass">
+            <div class="card-icon">❓</div>
+            <h3>The Problem</h3>
+            <p>{{ project.real_world_problem }}</p>
+        </div>
+
+        <div class="result-card glass">
+            <div class="card-icon">🛠️</div>
+            <h3>What You'll Build</h3>
+            <p>{{ project.prerequisites }}</p>
+            <p><strong>Tech Stack:</strong> {{ project.technologies | join(", ") }}</p>
+        </div>
+
+        <div class="result-card glass">
+            <div class="card-icon">📊</div>
+            <h3>Why This Was Recommended</h3>
+            <p><strong>Overall Match:</strong> {{ score.final_score }}%</p>
+            <p>Skill Match: {{ score.skill_score_pct }}%</p>
+            <p>Career Relevance: {{ score.career_score_pct }}%</p>
+            <p>Interest Match: {{ score.interest_score_pct }}%</p>
+            <p>Difficulty Fit: {{ score.difficulty_score_pct }}%</p>
+            <p>Time Fit: {{ score.time_score_pct }}%</p>
+        </div>
+
+        <div class="result-card glass">
+            <div class="card-icon">✅</div>
+            <h3>Skills You Already Have</h3>
+            {% if score.known_skills %}
+                <ul>{% for skill in score.known_skills %}<li>{{ skill }}</li>{% endfor %}</ul>
+            {% else %}
+                <p>None of the required skills yet — this would be a stretch project.</p>
+            {% endif %}
+        </div>
+
+        <div class="result-card glass">
+            <div class="card-icon">📚</div>
+            <h3>Skills You'll Learn</h3>
+            <ul>{% for skill in project.learned_skills %}<li>{{ skill }}</li>{% endfor %}</ul>
+        </div>
+
+        <div class="result-card glass">
+            <div class="card-icon">🎓</div>
+            <h3>Learning Outcomes</h3>
+            <ul>{% for outcome in project.learning_outcomes %}<li>{{ outcome }}</li>{% endfor %}</ul>
+        </div>
+
+    </section>
+
+    <!-- ROADMAP -->
+    <section class="dashboard-section">
+        <h2 class="section-heading-left">Step-by-Step Roadmap</h2>
+        <div class="result-card glass roadmap-card">
+            {% for step in project.roadmap %}
+                <div class="roadmap-step">
+                    {% if progress %}
+                        <form method="POST" action="{{ url_for('main.toggle_task', project_id=project.id, task_index=loop.index0) }}" class="task-toggle-form">
+                            <button type="submit" class="task-checkbox {% if progress.task_progress[loop.index0] %}checked{% endif %}">
+                                {% if progress.task_progress[loop.index0] %}✓{% endif %}
+                            </button>
+                        </form>
+                    {% else %}
+                        <span class="task-checkbox disabled"></span>
+                    {% endif %}
+                    <span class="{% if progress and progress.task_progress[loop.index0] %}task-done{% endif %}">{{ step }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- ACTIONS -->
+    <div class="result-actions">
+        {% if not progress %}
+            <form method="POST" action="{{ url_for('main.start_project', project_id=project.id) }}">
+                <button type="submit" class="btn btn-primary btn-large">Start This Project</button>
+            </form>
+        {% elif progress.status == 'in_progress' %}
+            <form method="POST" action="{{ url_for('main.complete_project', project_id=project.id) }}">
+                <button type="submit" class="btn btn-primary btn-large">Mark as Completed</button>
+            </form>
+        {% else %}
+            <span class="badge">✅ Completed on {{ progress.completed_at }}</span>
+        {% endif %}
+        <a href="{{ url_for('main.dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+
+{% endblock %}

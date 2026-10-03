@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}BuildPath — Know What to Build Next{% endblock %}
+
+{% block content %}
+
+    <section class="hero">
+        <h1 class="hero-title">BuildPath</h1>
+        <p class="hero-tagline">Stop guessing what project to build next.</p>
+        <p class="hero-description">
+            You know you want to break into AI/ML, Web Development, or Cybersecurity —
+            but which project should you actually build, given your current skills,
+            interests, and free time? BuildPath analyzes your skill gaps and recommends
+            the right project next, and explains exactly why.
+        </p>
+
+        {% if session.student_id %}
+            <a href="{{ url_for('main.dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+        {% else %}
+            <a href="{{ url_for('main.new_profile') }}" class="btn btn-primary">Get Started</a>
+            <a href="{{ url_for('main.profile_switch') }}" class="btn btn-secondary">Try a Demo Profile</a>
+        {% endif %}
+    </section>
+
+    <section class="features">
+        <h2 class="section-heading">How It Works</h2>
+        <div class="features-grid">
+            <div class="feature-card glass">
+                <div class="feature-icon">🎯</div>
+                <h3>Skill Gap Analysis</h3>
+                <p>See exactly which skills you have, which need work, and which are missing for your career goal.</p>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">📊</div>
+                <h3>Explainable Recommendations</h3>
+                <p>Every project comes with a clear breakdown of why it was recommended to you.</p>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">🗺️</div>
+                <h3>Step-by-Step Roadmaps</h3>
+                <p>Every project includes a roadmap you can track task by task.</p>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">🔁</div>
+                <h3>Learns From Feedback</h3>
+                <p>Rate each project you finish, and future recommendations adjust to your taste.</p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

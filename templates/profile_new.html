@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Create Profile — BuildPath{% endblock %}
+
+{% block content %}
+
+    <section class="form-section">
+        <div class="form-card glass">
+            <h2>Create Your Profile</h2>
+            <p class="auth-subtitle">This helps BuildPath recommend the right projects for you.</p>
+
+            <form method="POST" action="{{ url_for('main.create_profile') }}" class="project-form">
+
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="e.g. Rohan" required>
+
+                <label for="career_goal">Career Goal</label>
+                <select id="career_goal" name="career_goal" required>
+                    <option value="" disabled selected>Select your target career</option>
+                    {% for goal in career_goals %}
+                        <option value="{{ goal }}">{{ goal }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="experience_level">Experience Level</label>
+                <select id="experience_level" name="experience_level" required>
+                    <option value="" disabled selected>Select your experience level</option>
+                    {% for level in experience_levels %}
+                        <option value="{{ level }}">{{ level }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="weekly_hours">Weekly Available Time (hours)</label>
+                <input type="number" id="weekly_hours" name="weekly_hours" min="1" max="40" placeholder="e.g. 6" required>
+
+                <label for="preferred_duration_weeks">Preferred Project Duration (weeks)</label>
+                <input type="number" id="preferred_duration_weeks" name="preferred_duration_weeks" min="1" max="12" placeholder="e.g. 2" required>
+
+                <label>Your Skills (set proficiency 1-5, leave at 0 if you don't know it)</label>
+                <div class="skills-grid">
+                    {% for skill in skill_options %}
+                        <div class="skill-row">
+                            <span class="skill-name">{{ skill }}</span>
+                            <select name="skill_{{ skill }}" class="skill-select">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <label>Your Interests</label>
+                <div class="interests-grid">
+                    {% for interest in interest_options %}
+                        <label class="interest-checkbox">
+                            <input type="checkbox" name="interests" value="{{ interest }}">
+                            {{ interest }}
+                        </label>
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full btn-large">Create Profile</button>
+            </form>
+        </div>
+    </section>
+
+{% endblock %}

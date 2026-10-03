@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Feedback — {{ project.title }}{% endblock %}
+
+{% block content %}
+
+    <section class="form-section">
+        <div class="form-card glass">
+            <h2>🎉 You finished {{ project.title }}!</h2>
+            <p class="auth-subtitle">Quick feedback helps us recommend better projects next time.</p>
+
+            <form method="POST" action="{{ url_for('main.submit_feedback', project_id=project.id) }}" class="project-form">
+
+                <label for="difficulty_rating">How difficult was it? (1 = too easy, 5 = too hard)</label>
+                <select id="difficulty_rating" name="difficulty_rating" required>
+                    <option value="1">1 - Too Easy</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3 - Just Right</option>
+                    <option value="4">4</option>
+                    <option value="5">5 - Too Hard</option>
+                </select>
+
+                <label for="enjoyment_rating">How much did you enjoy it? (1-5)</label>
+                <select id="enjoyment_rating" name="enjoyment_rating" required>
+                    <option value="1">1 - Didn't enjoy it</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3 - It was fine</option>
+                    <option value="4">4</option>
+                    <option value="5">5 - Loved it</option>
+                </select>
+
+                <label for="actual_hours">How many hours did it actually take?</label>
+                <input type="number" id="actual_hours" name="actual_hours" min="1" placeholder="e.g. 18" required>
+
+                <label for="learned_expected_skills">Did you learn the skills this project promised?</label>
+                <select id="learned_expected_skills" name="learned_expected_skills" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">Not really</option>
+                </select>
+
+                <label for="would_build_again">Would you build a similar project again?</label>
+                <select id="would_build_again" name="would_build_again" required>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+
+                <button type="submit" class="btn btn-primary btn-full btn-large">Submit Feedback</button>
+            </form>
+        </div>
+    </section>
+
+{% endblock %}

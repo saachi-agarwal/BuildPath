@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — BuildPath{% endblock %}
+
+{% block content %}
+
+    <section class="result-header">
+        <h1>Welcome, {{ student.name }}</h1>
+        <div class="result-meta">
+            <span class="badge">{{ student.career_goal }}</span>
+            <span class="result-date">{{ student.experience_level }} · {{ student.weekly_hours }} hrs/week</span>
+        </div>
+    </section>
+
+    <!-- SKILL GAP ANALYSIS -->
+    <section class="dashboard-section">
+        <h2 class="section-heading-left">Your Skill Gap Analysis</h2>
+        <div class="skill-gap-grid">
+            <div class="result-card glass">
+                <div class="card-icon">✅</div>
+                <h3>Skills You Know</h3>
+                {% if skill_gap.known_skills %}
+                    <ul>{% for skill in skill_gap.known_skills %}<li>{{ skill }}</li>{% endfor %}</ul>
+                {% else %}
+                    <p>No skills added yet.</p>
+                {% endif %}
+            </div>
+            <div class="result-card glass">
+                <div class="card-icon">📈</div>
+                <h3>Skills to Improve</h3>
+                {% if skill_gap.improving_skills %}
+                    <ul>{% for skill in skill_gap.improving_skills %}<li>{{ skill }}</li>{% endfor %}</ul>
+                {% else %}
+                    <p>Nothing below proficiency 3 — nice work.</p>
+                {% endif %}
+            </div>
+            <div class="result-card glass">
+                <div class="card-icon">🎯</div>
+                <h3>Important Missing Skills</h3>
+                {% if skill_gap.missing_skills %}
+                    <ul>{% for skill in skill_gap.missing_skills %}<li>{{ skill }}</li>{% endfor %}</ul>
+                {% else %}
+                    <p>You're covering all the key skills for this path!</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- TOP RECOMMENDATIONS -->
+    <section class="dashboard-section">
+        <h2 class="section-heading-left">What Should I Build Next?</h2>
+        {% if recommendations %}
+            <div class="projects-grid">
+                {% for rec in recommendations %}
+                    <div class="project-card glass">
+                        <div class="project-card-top">
+                            <span class="badge">{{ rec.project.category }}</span>
+                            <span class="score-badge">{{ rec.final_score }}% match</span>
+                        </div>
+                        <h3>{{ rec.project.title }}</h3>
+                        <p class="project-date">{{ rec.project.difficulty }} · {{ rec.project.estimated_hours }} hrs · {{ rec.project.duration_weeks }} wk</p>
+                        <div class="project-card-actions">
+                            <a href="{{ url_for('main.project_detail', project_id=rec.project.id) }}" class="btn btn-secondary btn-small">View Details</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">No new recommendations right now — you've started all the top matches!</p>
+        {% endif %}
+    </section>
+
+    <!-- IN PROGRESS -->
+    {% if in_progress_projects %}
+    <section class="dashboard-section">
+        <h2 class="section-heading-left">In Progress</h2>
+        <div class="projects-grid">
+            {% for project in in_progress_projects %}
+                <div class="project-card glass">
+                    <span class="badge">{{ project.category }}</span>
+                    <h3>{{ project.title }}</h3>
+                    <div class="project-card-actions">
+                        <a href="{{ url_for('main.project_detail', project_id=project.id) }}" class="btn btn-secondary btn-small">Continue</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- COMPLETED -->
+    {% if completed_projects %}
+    <section class="dashboard-section">
+        <h2 class="section-heading-left">Completed Projects</h2>
+        <div class="projects-grid">
+            {% for project in completed_projects %}
+                <div class="project-card glass">
+                    <span class="badge">{{ project.category }}</span>
+                    <h3>{{ project.title }}</h3>
+                    <p class="project-date">✅ Completed</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+{% endblock %}
